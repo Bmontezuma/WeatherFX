@@ -1,1 +1,26 @@
-index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeatherFX</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>WeatherFX</h1>
+    <input type="text" id="cityInput" placeholder="Enter a city..." />
+    <button onclick="getWeather()">Get Weather</button>
+    <div id="weatherOutput"></div>
+    <button onclick="speakWeather()">🔊 Read Forecast</button>
+  </div>
+
+  <a-scene embedded id="weatherScene" style="height: 300px; width: 100%;">
+    <a-sky color="#88ccee"></a-sky>
+  </a-scene>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
