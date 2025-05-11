@@ -8,7 +8,16 @@ async function getWeather() {
     const res = await fetch(url);
     const data = await res.json();
     displayWeather(data);
-    window.currentForecast = `In ${data.name}, it's ${data.weather[0].description} with a temperature of ${data.main.temp} degrees Fahrenheit.`;
+    window.currentForecast = `
+  The current weather in ${data.name} is ${data.weather[0].description}.
+  The temperature is ${data.main.temp} degrees Fahrenheit,
+  with a high of ${data.main.temp_max} and a low of ${data.main.temp_min}.
+  Humidity is at ${data.main.humidity} percent.
+  Wind speed is around ${data.wind.speed} miles per hour.
+  Atmospheric pressure is ${data.main.pressure} millibars.
+  Visibility is ${data.visibility / 1000} kilometers.
+`;
+
     triggerVisualEffect(data.weather[0].main);
   } catch (err) {
     document.getElementById('weatherOutput').innerText = 'City not found.';
