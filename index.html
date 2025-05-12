@@ -12,15 +12,27 @@
     <h1>WeatherFX</h1>
     <input type="text" id="cityInput" placeholder="Enter a city..." />
     <button onclick="getWeather()">Get Weather</button>
-    <div id="weatherOutput"></div>
     <button onclick="speakWeather()">🔊 Read Forecast</button>
+
+    <div id="weatherOutput"></div>
+    <div id="forecastOutput"></div>
   </div>
 
   <a-scene embedded id="weatherScene" style="height: 300px; width: 100%;">
     <a-sky color="#88ccee"></a-sky>
   </a-scene>
 
+  <div id="radarMapContainer" style="text-align: center; margin-top: 20px;">
+    <h3>Live Radar</h3>
+    <iframe
+      id="radarMap"
+      width="650"
+      height="450"
+      frameborder="0"
+      src="https://embed.windy.com/embed2.html?lat=36.15&lon=-95.99&detailLat=36.15&detailLon=-95.99&width=650&height=450&zoom=7&level=surface&overlay=radar&menu=&message=true&marker=&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1"
+    ></iframe>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
-
