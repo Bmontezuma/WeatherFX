@@ -1,4 +1,4 @@
-const apiKey = '520514a007f3bb24be51a8b7f35a90f3'; // Replace this with your actual key
+const apiKey = '520514a007f3bb24be51a8b7f35a90f3';
 
 async function getWeather() {
   const city = document.getElementById('cityInput').value;
@@ -9,16 +9,17 @@ async function getWeather() {
     const data = await res.json();
     displayWeather(data);
     window.currentForecast = `
-  The current weather in ${data.name} is ${data.weather[0].description}.
-  The temperature is ${data.main.temp} degrees Fahrenheit,
-  with a high of ${data.main.temp_max} and a low of ${data.main.temp_min}.
-  Humidity is at ${data.main.humidity} percent.
-  Wind speed is around ${data.wind.speed} miles per hour.
-  Atmospheric pressure is ${data.main.pressure} millibars.
-  Visibility is ${data.visibility / 1000} kilometers.
-`;
-
+      The current weather in ${data.name} is ${data.weather[0].description}.
+      The temperature is ${data.main.temp} degrees Fahrenheit,
+      with a high of ${data.main.temp_max} and a low of ${data.main.temp_min}.
+      Humidity is at ${data.main.humidity} percent.
+      Wind speed is around ${data.wind.speed} miles per hour.
+      Atmospheric pressure is ${data.main.pressure} millibars.
+      Visibility is ${data.visibility / 1000} kilometers.
+    `;
     triggerVisualEffect(data.weather[0].main);
+    updateRadar(data.coord.lat, data.coord.lon);
+    await getFiveDayForecast(city);
   } catch (err) {
     document.getElementById('weatherOutput').innerText = 'City not found.';
     console.error(err);
@@ -82,3 +83,38 @@ function triggerVisualEffect(condition) {
   }, 10000);
 }
 
+async function getFiveDayForecast(city) {
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`;
+
+  try {
+    const res = await fetch(forecastUrl);
+    const data = await res.json();
+
+    const forecastContainer = document.getElementById('forecastOutput');
+    forecastContainer.innerHTML = '<h3>5-Day Forecast</h3>';
+
+    for (let i = 0; i < data.list.length; i += 8) {
+      const forecast = data.list[i];
+      const date = new Date(forecast.dt * 1000).toLocaleDateString();
+      const temp = forecast.main.temp;
+      const desc = forecast.weather[0].description;
+
+      const card = document.createElement('div');
+      card.classList.add('forecast-card');
+      card.innerHTML = `
+        <strong>${date}</strong><br>
+        ${desc}<br>
+        Temp: ${temp}°F
+      `;
+      forecastContainer.appendChild(card);
+    }
+  } catch (err) {
+    console.error('Forecast fetch failed:', err);
+  }
+}
+
+function updateRadar(lat, lon) {
+  const radarFrame = document.getElementById('radarMap');
+  radarFrame.src =
+    `https://embed.windy.com/embed2.html?lat=${lat}&lon=${lon}&detailLat=${lat}&detailLon=${lon}&width=650&height=450&zoom=7&level=surface&overlay=radar&menu=&message=true&marker=&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1`;
+}
