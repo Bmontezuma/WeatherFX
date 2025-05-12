@@ -1,27 +1,98 @@
+/* Base styles */
 body {
   font-family: Arial, sans-serif;
   background: #eef2f3;
   text-align: center;
   padding: 2rem;
+  margin: 0;
 }
 
+/* Centered card-style container */
 .container {
   max-width: 400px;
   margin: auto;
   background: white;
   border-radius: 10px;
   padding: 2rem;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Input field */
 input {
   padding: 0.5rem;
   width: 80%;
   margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
+/* Buttons */
 button {
   padding: 0.5rem 1rem;
   margin: 0.5rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Weather output */
+#weatherOutput {
+  margin-top: 1rem;
+}
+
+/* Forecast container */
+#forecastOutput {
+  margin-top: 2rem;
+}
+
+/* Forecast day cards */
+.forecast-card {
+  background: #dff0ff;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 6px;
+  display: inline-block;
+  width: 130px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  vertical-align: top;
+}
+
+.forecast-card img {
+  width: 50px;
+  height: 50px;
+}
+
+/* Radar container */
+#radarMapContainer {
+  margin-top: 2rem;
+}
+
+/* Responsive radar iframe */
+iframe#radarMap {
+  max-width: 100%;
+  width: 100%;
+  height: 450px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile-friendly tweaks */
+@media screen and (max-width: 480px) {
+  .container {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .forecast-card {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
